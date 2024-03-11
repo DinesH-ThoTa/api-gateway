@@ -1,0 +1,36 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: API-GATEWAY
+  cloud:
+    gateway:
+      routes:
+        - id: CITIZEN-SERVICE
+          uri: lb://CITIZEN-SERVICE
+          predicates:
+            - Path=/citizen/**
+        - id: VACCINATION-CENTRE
+          uri: lb://VACCINATION-CENTRE
+          predicates:
+            - Path=/vaccination/**
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+  info:
+    env:
+      enabled: true
+    build:
+      enabled: true
+    git:
+      enabled: true
+    java:
+      enabled: true
